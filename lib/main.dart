@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/home_layout/home_layout.dart';
+import 'package:todo_app/providers/main_provider.dart';
+import 'package:todo_app/providers/task_provider.dart';
 import 'package:todo_app/shared/styles/my_themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => TaskProvider()),
+    ChangeNotifierProvider(create: (context) => MainProvider()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -12,6 +18,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MainProvider>(context);
     return MaterialApp(
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
@@ -22,10 +29,10 @@ class MyApp extends StatelessWidget {
         Locale('en'), // English
         Locale('ar'), // Spanish
       ],
-      locale: const Locale('en'),
+      locale: provider.locale,
       darkTheme: MyThemeData.darkThemeData,
       theme: MyThemeData.lightThemeData,
-      themeMode: ThemeMode.light,
+      themeMode: provider.themeMode,
       initialRoute: HomeLayout.routeName,
       routes: {HomeLayout.routeName: (context) => const HomeLayout()},
       debugShowCheckedModeBanner: false,

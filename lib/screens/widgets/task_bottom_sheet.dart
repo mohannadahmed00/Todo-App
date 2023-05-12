@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/providers/task_provider.dart';
 import '../../providers/bottom_sheet_provider.dart';
 import '../../shared/styles/app_colors.dart';
 
@@ -12,6 +14,7 @@ class TaskBottomSheet extends StatelessWidget {
       create: (context) => BottomSheetProvider(),
       builder: (context, child) {
         var provider = Provider.of<BottomSheetProvider>(context);
+        var taskProvider = Provider.of<TaskProvider>(context);
         return Form(
           key: provider.formKey,
           child: Padding(
@@ -78,6 +81,12 @@ class TaskBottomSheet extends StatelessWidget {
                     child: ElevatedButton(
                         onPressed: () {
                           if (provider.formKey.currentState!.validate()) {
+                            TaskModel task = TaskModel(
+                                provider.selectedDate
+                                    .toString()
+                                    .substring(0, 10),
+                                provider.title);
+                            taskProvider.addTask(task);
                             print("valid");
                           } else {
                             print("invalid");
