@@ -9,36 +9,31 @@ class TasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => TaskProvider(),
-      builder: (context, child) {
-        var provider = Provider.of<TaskProvider>(context);
-        return Column(
-          children: [
-            CalendarTimeline(
-              initialDate: DateTime.now(),
-              firstDate: DateTime(2023, 1, 1),
-              lastDate: DateTime(2023, 12, 30),
-              onDateSelected: (date) => print(date),
-              leftMargin: 20,
-              monthColor: AppColors.primaryColor,
-              dayColor: AppColors.primaryColor,
-              activeDayColor: Colors.white,
-              activeBackgroundDayColor: AppColors.primaryColor,
-              selectableDayPredicate: (date) {
-                return !provider.holidays.contains(date);
-              },
-              locale: 'en',
-            ),
-            Expanded(
-                child: Center(
-                    child: Text(
-              "number of tasks: ${provider.tasks.length}",
-              textAlign: TextAlign.center,
-            )))
-          ],
-        );
-      },
+    var provider = Provider.of<TaskProvider>(context);
+    return Column(
+      children: [
+        CalendarTimeline(
+          initialDate: DateTime.now(),
+          firstDate: DateTime(2023, 1, 1),
+          lastDate: DateTime(2023, 12, 30),
+          onDateSelected: (date) => print(date),
+          leftMargin: 20,
+          monthColor: AppColors.primaryColor,
+          dayColor: AppColors.primaryColor,
+          activeDayColor: Colors.white,
+          activeBackgroundDayColor: AppColors.primaryColor,
+          selectableDayPredicate: (date) {
+            return !provider.holidays.contains(date);
+          },
+          locale: 'en',
+        ),
+        Expanded(
+            child: Center(
+                child: Text(
+                  "number of tasks: ${provider.tasks.length}",
+                  textAlign: TextAlign.center,
+                )))
+      ],
     );
   }
 }
