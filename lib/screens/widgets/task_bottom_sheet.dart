@@ -37,6 +37,7 @@ class TaskBottomSheet extends StatelessWidget {
                     if (text == null || text.isEmpty) {
                       return "please enter task title";
                     }
+                    provider.title = text;
                     return null;
                   },
                   decoration: InputDecoration(
@@ -85,9 +86,9 @@ class TaskBottomSheet extends StatelessWidget {
                                 provider.selectedDate
                                     .toString()
                                     .substring(0, 10),
-                                provider.title);
+                                provider.title,"pending");
                             taskProvider.addTask(task);
-                            print("valid");
+                            print("valid: ${provider.selectedDate.toString().substring(0, 10)} => ${provider.title}");
                           } else {
                             print("invalid");
                           }
