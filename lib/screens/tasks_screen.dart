@@ -31,21 +31,29 @@ class TasksScreen extends StatelessWidget {
           locale: 'en',
         ),
         Expanded(
-            child: ListView(
+          child: ListView.builder(
+            itemBuilder: (context, index) {
+              return TaskItem(provider.targetTasks[index]);
+            },
+            itemCount: provider.targetTasks.length,
+          ),
+          /*child: ListView(
           children: [
             for (int i = 0; i < provider.tasks.length; i++) ...{
-              if(provider.tasks[i].date == provider.selectedDate.toString().substring(0, 10))TaskItem(provider.tasks[i]),
+              if (provider.tasks[i].date ==
+                  provider.selectedDate.toString().substring(0, 10))
+                TaskItem(provider.tasks[i]),
             }
-          ],
-          /*itemBuilder: (context, index) {*/
-          /*print("${provider.tasks[index].date} == ${provider.selectedDate.toString().substring(0, 10)}");
+          ],*/
+          /*itemBuilder: (context, index) {
+          print("${provider.tasks[index].date} == ${provider.selectedDate.toString().substring(0, 10)}");
             if(provider.tasks[index].date == provider.selectedDate.toString().substring(0, 10)){
               return TaskItem(provider.tasks[index]);
-            }*/
-          /*
+            }
+
           },
           itemCount: provider.tasks.length,*/
-        ))
+        )
       ],
     );
   }

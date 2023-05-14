@@ -6,6 +6,7 @@ class TaskProvider extends ChangeNotifier {
 
   void selectDate(DateTime date){
     selectedDate = date;
+    targetTasks = tasks.where((task) => task.date == selectedDate.toString().substring(0, 10)).toList();
     notifyListeners();
   }
 
@@ -18,15 +19,18 @@ class TaskProvider extends ChangeNotifier {
   ];
 
   List<TaskModel> tasks = [];
+  List<TaskModel> targetTasks = [];
 
   void addTask(TaskModel task) {
     tasks.add(task);
+    targetTasks = tasks.where((task) => task.date == selectedDate.toString().substring(0, 10)).toList();
     notifyListeners();
   }
 
   void removeTask(TaskModel task) {
     if(tasks.isNotEmpty){
       tasks.remove(task);
+      targetTasks = tasks.where((task) => task.date == selectedDate.toString().substring(0, 10)).toList();
       notifyListeners();
     }
   }
