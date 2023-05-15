@@ -1,5 +1,12 @@
-class TaskModel {
-  String date, title,status;
+import '../shared/components/constants.dart';
 
-  TaskModel(this.date, this.title,this.status);
+class TaskModel {
+  String id, date, title;
+  TaskStatus status;
+
+  TaskModel(
+      {this.id = "",
+      required this.date,
+      required this.title,
+      required this.status});
 }

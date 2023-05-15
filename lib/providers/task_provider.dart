@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/shared/components/constants.dart';
 import '../models/task_model.dart';
 
 class TaskProvider extends ChangeNotifier {
@@ -37,7 +38,7 @@ class TaskProvider extends ChangeNotifier {
 
   void doneTask(TaskModel task) {
     if(tasks.isNotEmpty){
-      tasks[tasks.indexOf(task)].status = "done";
+      tasks[tasks.indexOf(task)].status = TaskStatus.done;
       notifyListeners();
     }
   }
