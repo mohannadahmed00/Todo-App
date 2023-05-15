@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/home_layout/home_layout.dart';
@@ -5,8 +6,13 @@ import 'package:todo_app/providers/main_provider.dart';
 import 'package:todo_app/providers/task_provider.dart';
 import 'package:todo_app/shared/styles/my_themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => TaskProvider()),
     ChangeNotifierProvider(create: (context) => MainProvider()),
