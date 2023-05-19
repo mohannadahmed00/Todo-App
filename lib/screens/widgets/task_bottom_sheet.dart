@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/task_model.dart';
 import 'package:todo_app/providers/task_provider.dart';
-import 'package:todo_app/shared/components/constants.dart';
 import '../../providers/bottom_sheet_provider.dart';
 import '../../shared/styles/app_colors.dart';
 
@@ -88,7 +87,7 @@ class TaskBottomSheet extends StatelessWidget {
                                     .toString()
                                     .substring(0, 10),
                                 title: provider.title,
-                                status: TaskStatus.pending);
+                                status: false);
                             taskProvider.addTask(task);
                             print(
                                 "valid: ${provider.selectedDate.toString().substring(0, 10)} => ${provider.title}");
