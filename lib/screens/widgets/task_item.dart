@@ -3,7 +3,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/task_model.dart';
 import 'package:todo_app/providers/task_provider.dart';
-import 'package:todo_app/shared/components/constants.dart';
 import 'package:todo_app/shared/styles/app_colors.dart';
 
 class TaskItem extends StatelessWidget {
@@ -75,9 +74,9 @@ class TaskItem extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(vertical: 10),
                       width: 2.0,
                       // set the height to fill the available space
-                      color: task.status == TaskStatus.pending
-                          ? AppColors.primaryColor
-                          : AppColors.greenColor,
+                      color: task.status
+                          ? AppColors.greenColor
+                          : AppColors.primaryColor,
                     ),
                     Expanded(
                       child: Padding(
@@ -91,9 +90,9 @@ class TaskItem extends StatelessWidget {
                                   .textTheme
                                   .bodyMedium!
                                   .copyWith(
-                                      color: task.status == TaskStatus.pending
-                                          ? AppColors.primaryColor
-                                          : AppColors.greenColor),
+                                      color: task.status
+                                          ? AppColors.greenColor
+                                          : AppColors.primaryColor),
                             ),
                             Text(
                               task.date,
@@ -107,19 +106,30 @@ class TaskItem extends StatelessWidget {
                       onTap: () {
                         provider.doneTask(task);
                       },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        width: MediaQuery.of(context).size.width * .25,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: task.status == TaskStatus.pending
-                                ? AppColors.primaryColor
-                                : AppColors.greenColor),
-                        child: const Icon(
-                          Icons.check,
-                          color: Colors.white,
-                        ),
-                      ),
+                      child: task.status
+                          ? Container(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              width: MediaQuery.of(context).size.width * .25,
+                              child: Text(
+                                "Done!",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(color: AppColors.greenColor),
+                              ),
+                            )
+                          : Container(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              width: MediaQuery.of(context).size.width * .25,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: AppColors.primaryColor),
+                              child: const Icon(
+                                Icons.check,
+                                color: Colors.white,
+                              ),
+                            ),
                     ),
                   ],
                 ),

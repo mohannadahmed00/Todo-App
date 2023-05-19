@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../models/task_model.dart';
 import '../shared/network/remote/firebase_functions.dart';
@@ -5,9 +6,9 @@ import '../shared/network/remote/firebase_functions.dart';
 class TaskProvider extends ChangeNotifier {
   DateTime selectedDate = DateTime.now();
 
-  void selectDate(DateTime date){
+  void selectDate(DateTime date) {
     selectedDate = date;
-    targetTasks = tasks.where((task) => task.date == selectedDate.toString().substring(0, 10)).toList();
+    //targetTasks = tasks.where((task) => task.date == selectedDate.toString().substring(0, 10)).toList();
     notifyListeners();
   }
 
@@ -20,8 +21,8 @@ class TaskProvider extends ChangeNotifier {
   ];
 
   List<TaskModel> tasks = [];
-  List<TaskModel> targetTasks = [];
 
+  //List<TaskModel> targetTasks = [];
 
   void addTask(TaskModel task) {
     /*tasks.add(task);
@@ -30,20 +31,30 @@ class TaskProvider extends ChangeNotifier {
     FirebaseFunctions.addTask(task);
   }
 
-  void removeTask(TaskModel task) {
-    if(tasks.isNotEmpty){
+  Stream<QuerySnapshot<TaskModel>> getTasksSnapShot() {
+    return FirebaseFunctions.getTasks(selectedDate.toString().substring(0, 10));
+  }
+
+  void getTasks(AsyncSnapshot<QuerySnapshot<TaskModel>> snapshot) {
+    tasks = snapshot.data?.docs.map((e) => e.data()).toList() ?? [];
+    notifyListeners();
+  }
+
+  Future<void> removeTask(TaskModel task) {
+    return FirebaseFunctions.deleteTask(task.id);
+    /*if(tasks.isNotEmpty){
       tasks.remove(task);
       targetTasks = tasks.where((task) => task.date == selectedDate.toString().substring(0, 10)).toList();
       notifyListeners();
-    }
+    }*/
   }
 
   void doneTask(TaskModel task) {
-    if(tasks.isNotEmpty){
+    task.status = true;
+    FirebaseFunctions.updateTask(task);
+    /*if(tasks.isNotEmpty){
       tasks[tasks.indexOf(task)].status = true;
       notifyListeners();
-    }
+    }*/
   }
-
-
 }

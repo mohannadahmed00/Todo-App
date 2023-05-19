@@ -31,14 +31,29 @@ class TasksScreen extends StatelessWidget {
           },
           locale: 'en',
         ),
-        Expanded(
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              return TaskItem(provider.targetTasks[index]);
-            },
-            itemCount: provider.targetTasks.length,
-          ),
-        )
+        StreamBuilder(
+          stream: provider.getTasksSnapShot(),
+          builder: (context, snapshot) {
+            if(snapshot.connectionState == ConnectionState.waiting){
+              return const Expanded(child: Center(child: CircularProgressIndicator()));
+            }
+            if(snapshot.hasError){
+              return Expanded(child: Center(child: Text("Something went wrong",style: Theme.of(context).textTheme.bodyMedium,)));
+            }
+            //List<TaskModel> tasks = snapshot.data?.docs.map((e) => e.data()).toList()??[];
+            provider.getTasks(snapshot);
+            if(provider.tasks.isEmpty){
+              return Expanded(child: Center(child: Text("No Data",style: Theme.of(context).textTheme.bodyMedium,)));
+            }
+          return Expanded(
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                return TaskItem(provider.tasks[index]);
+              },
+              itemCount: provider.tasks.length,
+            ),
+          );
+        },)
       ],
     );
   }
