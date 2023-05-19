@@ -1,8 +1,6 @@
-import '../shared/components/constants.dart';
-
 class TaskModel {
   String id, date, title;
-  TaskStatus status;
+  bool status;
 
   TaskModel(
       {this.id = "",
@@ -18,7 +16,7 @@ class TaskModel {
           status: json['status'],
         );
 
-  Map<String, dynamic> toJSON(TaskModel task) {
+  Map<String, dynamic> toJSON() {
     return {
       "id": id,
       "date": date,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/shared/components/constants.dart';
 import '../models/task_model.dart';
+import '../shared/network/remote/firebase_functions.dart';
 
 class TaskProvider extends ChangeNotifier {
   DateTime selectedDate = DateTime.now();
@@ -22,10 +22,12 @@ class TaskProvider extends ChangeNotifier {
   List<TaskModel> tasks = [];
   List<TaskModel> targetTasks = [];
 
+
   void addTask(TaskModel task) {
-    tasks.add(task);
+    /*tasks.add(task);
     targetTasks = tasks.where((task) => task.date == selectedDate.toString().substring(0, 10)).toList();
-    notifyListeners();
+    notifyListeners();*/
+    FirebaseFunctions.addTask(task);
   }
 
   void removeTask(TaskModel task) {
@@ -38,7 +40,7 @@ class TaskProvider extends ChangeNotifier {
 
   void doneTask(TaskModel task) {
     if(tasks.isNotEmpty){
-      tasks[tasks.indexOf(task)].status = TaskStatus.done;
+      tasks[tasks.indexOf(task)].status = true;
       notifyListeners();
     }
   }
