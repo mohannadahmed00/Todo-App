@@ -18,4 +18,9 @@ class FirebaseFunctions {
     task.id = docRef.id;
     return docRef.set(task);
   }
+
+  static Future<QuerySnapshot<TaskModel>> getTasks(String date){
+    return getTaskCollection().where("date",isEqualTo: date).get();
+  }
+
 }

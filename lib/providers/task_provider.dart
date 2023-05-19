@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../models/task_model.dart';
 import '../shared/network/remote/firebase_functions.dart';
@@ -30,6 +31,15 @@ class TaskProvider extends ChangeNotifier {
     FirebaseFunctions.addTask(task);
   }
 
+  Future<QuerySnapshot<TaskModel>> getTasksSnapShot(){
+    return FirebaseFunctions.getTasks(selectedDate.toString().substring(0, 10));
+  }
+
+  void getTasks(AsyncSnapshot<QuerySnapshot<TaskModel>> snapshot){
+    tasks = snapshot.data?.docs.map((e) => e.data()).toList()??[];
+    notifyListeners();
+  }
+
   void removeTask(TaskModel task) {
     if(tasks.isNotEmpty){
       tasks.remove(task);
@@ -39,10 +49,10 @@ class TaskProvider extends ChangeNotifier {
   }
 
   void doneTask(TaskModel task) {
-    if(tasks.isNotEmpty){
+    /*if(tasks.isNotEmpty){
       tasks[tasks.indexOf(task)].status = true;
       notifyListeners();
-    }
+    }*/
   }
 
 
