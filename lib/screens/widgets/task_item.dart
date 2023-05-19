@@ -76,7 +76,7 @@ class TaskItem extends StatelessWidget {
                       // set the height to fill the available space
                       color: task.status
                           ? AppColors.greenColor
-                          :AppColors.primaryColor ,
+                          : AppColors.primaryColor,
                     ),
                     Expanded(
                       child: Padding(
@@ -92,7 +92,7 @@ class TaskItem extends StatelessWidget {
                                   .copyWith(
                                       color: task.status
                                           ? AppColors.greenColor
-                                          :AppColors.primaryColor ),
+                                          : AppColors.primaryColor),
                             ),
                             Text(
                               task.date,
@@ -106,19 +106,30 @@ class TaskItem extends StatelessWidget {
                       onTap: () {
                         provider.doneTask(task);
                       },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        width: MediaQuery.of(context).size.width * .25,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: task.status
-                                ? AppColors.greenColor
-                                : AppColors.primaryColor),
-                        child: const Icon(
-                          Icons.check,
-                          color: Colors.white,
-                        ),
-                      ),
+                      child: task.status
+                          ? Container(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              width: MediaQuery.of(context).size.width * .25,
+                              child: Text(
+                                "Done!",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(color: AppColors.greenColor),
+                              ),
+                            )
+                          : Container(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              width: MediaQuery.of(context).size.width * .25,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: AppColors.primaryColor),
+                              child: const Icon(
+                                Icons.check,
+                                color: Colors.white,
+                              ),
+                            ),
                     ),
                   ],
                 ),

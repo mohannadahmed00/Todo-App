@@ -31,8 +31,8 @@ class TasksScreen extends StatelessWidget {
           },
           locale: 'en',
         ),
-        FutureBuilder(
-          future: provider.getTasksSnapShot(),
+        StreamBuilder(
+          stream: provider.getTasksSnapShot(),
           builder: (context, snapshot) {
             if(snapshot.connectionState == ConnectionState.waiting){
               return const Expanded(child: Center(child: CircularProgressIndicator()));
