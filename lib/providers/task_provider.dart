@@ -6,7 +6,7 @@ import '../shared/network/remote/firebase_functions.dart';
 class TaskProvider extends ChangeNotifier {
   List<TaskModel> tasks = [];
 
-  DateTime selectedDate = DateTime.now();
+  DateTime selectedDate = DateUtils.dateOnly(DateTime.now());
 
   void selectDate(DateTime date) {
     selectedDate = date;
@@ -27,11 +27,16 @@ class TaskProvider extends ChangeNotifier {
 
   Stream<QuerySnapshot<TaskModel>> getTasksSnapShot() {
     //Future => one-time read
-    return FirebaseFunctions.getTasks(selectedDate.toString().substring(0, 10));
+    return FirebaseFunctions.getTasks(selectedDate.millisecondsSinceEpoch);
   }
 
   void getTasks(AsyncSnapshot<QuerySnapshot<TaskModel>> snapshot) {
-    tasks = snapshot.data?.docs.map((e) => e.data()).toList() ?? [];
+    tasks = snapshot.data?.docs.map((doc) {
+          TaskModel task = doc.data();
+          task.id = doc.id;
+          return task;
+        }).toList() ??
+        [];
     notifyListeners();
   }
 

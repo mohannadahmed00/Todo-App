@@ -89,7 +89,7 @@ class TaskItem extends StatelessWidget {
                                           : AppColors.primaryColor),
                             ),
                             Text(
-                              task.date,
+                              task.getDate(),
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],

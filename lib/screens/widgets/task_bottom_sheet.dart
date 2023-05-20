@@ -83,9 +83,7 @@ class TaskBottomSheet extends StatelessWidget {
                         onPressed: () {
                           if (provider.formKey.currentState!.validate()) {
                             TaskModel task = TaskModel(
-                                date: provider.selectedDate
-                                    .toString()
-                                    .substring(0, 10),
+                                date: provider.selectedDate.millisecondsSinceEpoch,
                                 title: provider.title,
                                 status: false);
                             taskProvider.addTask(task);

@@ -1,5 +1,8 @@
+import 'package:intl/intl.dart';
+
 class TaskModel {
-  String id, date, title;
+  String id, title;
+  int date;
   bool status;
 
   TaskModel(
@@ -10,7 +13,7 @@ class TaskModel {
 
   TaskModel.fromJSON(Map<String, dynamic> json)
       : this(
-          id: json['id'],
+          //id: json['id'],
           date: json['date'],
           title: json['title'],
           status: json['status'],
@@ -18,10 +21,16 @@ class TaskModel {
 
   Map<String, dynamic> toJSON() {
     return {
-      "id": id,
+      //"id": id,
       "date": date,
       "title": title,
       "status": status,
     };
+  }
+
+  String getDate(){
+    DateTime datetime = DateTime.fromMillisecondsSinceEpoch(date);
+    String formattedDate = DateFormat('yyyy-MM-dd').format(datetime);
+    return formattedDate;
   }
 }

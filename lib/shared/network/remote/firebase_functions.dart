@@ -19,7 +19,7 @@ class FirebaseFunctions {
     return docRef.set(task);
   }
 
-  static Stream<QuerySnapshot<TaskModel>> getTasks(String date) {
+  static Stream<QuerySnapshot<TaskModel>> getTasks(int date) {
     return getTaskCollection()
         .where("date", isEqualTo: date)
         .snapshots(); // real-time read

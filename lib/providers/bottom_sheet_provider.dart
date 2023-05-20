@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class BottomSheetProvider extends ChangeNotifier {
   var formKey = GlobalKey<FormState>();
-  DateTime selectedDate = DateTime.now();
+  DateTime selectedDate = DateUtils.dateOnly(DateTime.now());
   String title = "";
 
   void setTitle(String text) {
