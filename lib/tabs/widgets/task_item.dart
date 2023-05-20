@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/task_model.dart';
 import 'package:todo_app/providers/task_provider.dart';
+import 'package:todo_app/screens/edit_layout.dart';
 import 'package:todo_app/shared/styles/app_colors.dart';
 
 class TaskItem extends StatelessWidget {
@@ -12,6 +13,7 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     var provider = Provider.of<TaskProvider>(context);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -48,7 +50,7 @@ class TaskItem extends StatelessWidget {
                 ),
                 if(!task.status)SlidableAction(
                   onPressed: (context) {
-                    //provider.removeTask(task.id);
+                    Navigator.pushNamed(context, EditLayout.routeName,arguments: task);
                   },
                   backgroundColor: AppColors.primaryColor,
                   foregroundColor: Colors.white,

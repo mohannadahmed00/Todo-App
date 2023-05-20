@@ -10,6 +10,10 @@ class BottomSheetProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setInitialDate(DateTime initialDate){
+    selectedDate = initialDate;
+    notifyListeners();
+  }
   void selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
       context: context,

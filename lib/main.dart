@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/screens/edit_layout.dart';
 import 'package:todo_app/screens/home_layout.dart';
 import 'package:todo_app/providers/main_provider.dart';
 import 'package:todo_app/providers/task_provider.dart';
@@ -41,7 +42,10 @@ class MyApp extends StatelessWidget {
       theme: MyThemeData.lightThemeData,
       themeMode: provider.themeMode,
       initialRoute: HomeLayout.routeName,
-      routes: {HomeLayout.routeName: (context) => const HomeLayout()},
+      routes: {
+        HomeLayout.routeName: (context) => const HomeLayout(),
+        EditLayout.routeName: (context) => EditLayout(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }

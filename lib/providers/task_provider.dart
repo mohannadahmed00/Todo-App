@@ -48,4 +48,10 @@ class TaskProvider extends ChangeNotifier {
     task.status = true;
     return FirebaseFunctions.updateTask(task);
   }
+
+  Future<void> editTask(TaskModel task) {
+    return FirebaseFunctions.updateTask(task);
+  }
+
+
 }
