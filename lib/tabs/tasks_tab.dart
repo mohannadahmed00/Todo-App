@@ -1,12 +1,12 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/screens/widgets/task_item.dart';
+import 'package:todo_app/tabs/widgets/task_item.dart';
 import 'package:todo_app/shared/styles/app_colors.dart';
 import 'package:todo_app/providers/task_provider.dart';
 
-class TasksScreen extends StatelessWidget {
-  const TasksScreen({super.key});
+class TasksTab extends StatelessWidget {
+  const TasksTab({super.key});
 
   @override
   Widget build(BuildContext context) {
