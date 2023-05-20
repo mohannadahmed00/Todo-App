@@ -6,7 +6,6 @@ import 'package:todo_app/shared/styles/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-
 class SettingsTab extends StatelessWidget {
   const SettingsTab({Key? key}) : super(key: key);
 
@@ -26,28 +25,34 @@ class SettingsTab extends StatelessWidget {
               Directionality(
                 textDirection: TextDirection.ltr,
                 child: ToggleSwitch(
-                  minWidth: MediaQuery.of(context).size.width*.25,
-
-                  initialLabelIndex: provider.themeMode == ThemeMode.light?1:0,
+                  minWidth: MediaQuery.of(context).size.width * .25,
+                  animate: true,
+                  // with just animate set to true, default curve = Curves.easeIn
+                  curve: Curves.bounceInOut,
+                  // animate must be set to true when using custom curve
+                  initialLabelIndex:
+                      provider.themeMode == ThemeMode.light ? 1 : 0,
                   cornerRadius: 20.0,
                   activeFgColor: Colors.white,
                   inactiveBgColor: Colors.transparent,
                   inactiveFgColor: Colors.white,
                   totalSwitches: 2,
-                  icons: [
+                  icons: const [
                     FontAwesomeIcons.lightbulb,
                     FontAwesomeIcons.solidLightbulb,
                   ],
                   iconSize: 30.0,
-                  activeBgColors: [[Colors.black45, Colors.black26], [Colors.yellow, Colors.orange]],
-                   // animate must be set to true when using custom curve
+                  activeBgColors: const [
+                    [Colors.black45, Colors.black26],
+                    [Colors.yellow, Colors.orange]
+                  ],
+                  // animate must be set to true when using custom curve
                   onToggle: (index) {
-                    if(index==0){
+                    if (index == 0) {
                       provider.changeThemeMode(ThemeMode.dark);
-                    }else{
+                    } else {
                       provider.changeThemeMode(ThemeMode.light);
                     }
-                    print('switched to: $index');
                   },
                 ),
               ),
@@ -65,24 +70,30 @@ class SettingsTab extends StatelessWidget {
               Directionality(
                 textDirection: TextDirection.ltr,
                 child: ToggleSwitch(
-                  minWidth: MediaQuery.of(context).size.width*.25,
-                  initialLabelIndex: provider.locale.languageCode == "ar"?1:0,
+                  minWidth: MediaQuery.of(context).size.width * .25,
+                  initialLabelIndex:
+                      provider.locale.languageCode == "ar" ? 1 : 0,
                   cornerRadius: 20.0,
                   activeFgColor: Colors.white,
                   inactiveBgColor: Colors.transparent,
                   inactiveFgColor: Colors.white,
                   totalSwitches: 2,
-                  labels: [AppLocalizations.of(context)!.english, AppLocalizations.of(context)!.arabic],
+                  labels: [
+                    AppLocalizations.of(context)!.english,
+                    AppLocalizations.of(context)!.arabic
+                  ],
                   iconSize: 30.0,
-                  activeBgColors: [[AppColors.primaryColor], [AppColors.primaryColor]],
-                   // animate must be set to true when using custom curve
+                  activeBgColors: const [
+                    [AppColors.primaryColor],
+                    [AppColors.primaryColor]
+                  ],
+                  // animate must be set to true when using custom curve
                   onToggle: (index) {
-                    if(index==0){
+                    if (index == 0) {
                       provider.changeLanguage('en');
-                    }else{
+                    } else {
                       provider.changeLanguage('ar');
                     }
-                    print('switched to: $index');
                   },
                 ),
               ),
@@ -117,14 +128,16 @@ class SettingsTab extends StatelessWidget {
     );
   }
 
-  void showBottomSheet(BuildContext context,String type) {
+  void showBottomSheet(BuildContext context, String type) {
     showModalBottomSheet(
         context: context,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         builder: (context) {
-          return Container(color: Colors.amber,);
+          return Container(
+            color: Colors.amber,
+          );
           //return MyBottomSheet(type);
         });
   }

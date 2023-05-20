@@ -31,7 +31,6 @@ class FirebaseFunctions {
   }
 
   static Future<void> updateTask(TaskModel task) {
-    print("object id: ${task.id}");
     return getTaskCollection().doc(task.id).update(task.toJSON());
   }
 }

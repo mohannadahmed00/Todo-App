@@ -13,5 +13,7 @@
   "arabic": "Arabic",
   "appearance": "Appearance",
   "light": "Light",
-  "dark": "Dark"
+  "dark": "Dark",
+  "no_data": "No Data",
+  "wrong": "Something Went Wrong"
 }

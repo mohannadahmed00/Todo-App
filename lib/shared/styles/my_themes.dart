@@ -23,7 +23,9 @@ class MyThemeData {
       primaryColor: AppColors.primaryColor,
       textTheme: TextTheme(
         bodySmall: GoogleFonts.roboto(
-            fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.black),
+            fontSize: 12,
+            fontWeight: FontWeight.normal,
+            color: AppColors.black),
         bodyMedium: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -45,13 +47,15 @@ class MyThemeData {
             color: AppColors.primaryColor, fontWeight: FontWeight.bold),
         unselectedItemColor: Colors.grey,
         unselectedLabelStyle:
-        TextStyle(color: Colors.grey, fontWeight: FontWeight.normal),
+            TextStyle(color: Colors.grey, fontWeight: FontWeight.normal),
       ),
       scaffoldBackgroundColor: AppColors.darkBackgroundColor,
       primaryColor: AppColors.primaryColor,
       textTheme: TextTheme(
         bodySmall: GoogleFonts.roboto(
-            fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.white),
+            fontSize: 12,
+            fontWeight: FontWeight.normal,
+            color: AppColors.white),
         bodyMedium: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.bold,

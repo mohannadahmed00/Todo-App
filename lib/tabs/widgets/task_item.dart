@@ -8,7 +8,6 @@ import 'package:todo_app/screens/edit_layout.dart';
 import 'package:todo_app/shared/styles/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class TaskItem extends StatelessWidget {
   final TaskModel task;
 
@@ -16,7 +15,6 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     var mainProvider = Provider.of<MainProvider>(context);
     var taskProvider = Provider.of<TaskProvider>(context);
     return Container(
@@ -28,7 +26,10 @@ class TaskItem extends StatelessWidget {
             child: Builder(
                 builder: (context) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Container(color:task.status? AppColors.redColor:AppColors.primaryColor),
+                      child: Container(
+                          color: task.status
+                              ? AppColors.redColor
+                              : AppColors.primaryColor),
                     )),
           ),
           Slidable(
@@ -51,20 +52,25 @@ class TaskItem extends StatelessWidget {
                   icon: Icons.delete,
                   label: AppLocalizations.of(context)!.delete,
                 ),
-                if(!task.status)SlidableAction(
-                  onPressed: (context) {
-                    Navigator.pushNamed(context, EditLayout.routeName,arguments: task);
-                  },
-                  backgroundColor: AppColors.primaryColor,
-                  foregroundColor: AppColors.white,
-                  icon: Icons.edit,
-                  label: AppLocalizations.of(context)!.edit,
-                ),
+                if (!task.status)
+                  SlidableAction(
+                    onPressed: (context) {
+                      Navigator.pushNamed(context, EditLayout.routeName,
+                          arguments: task);
+                    },
+                    backgroundColor: AppColors.primaryColor,
+                    foregroundColor: AppColors.white,
+                    icon: Icons.edit,
+                    label: AppLocalizations.of(context)!.edit,
+                  ),
               ],
             ),
             child: Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5), color: mainProvider.themeMode==ThemeMode.light?AppColors.white:AppColors.black),
+                  borderRadius: BorderRadius.circular(5),
+                  color: mainProvider.themeMode == ThemeMode.light
+                      ? AppColors.white
+                      : AppColors.black),
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               child: IntrinsicHeight(
                 child: Row(
@@ -110,7 +116,7 @@ class TaskItem extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(vertical: 5),
                               width: MediaQuery.of(context).size.width * .25,
                               child: Text(
-                                "${AppLocalizations.of(context)!.done}",
+                                AppLocalizations.of(context)!.done,
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context)
                                     .textTheme
