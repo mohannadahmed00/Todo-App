@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/providers/home_provider.dart';
+import 'package:todo_app/providers/main_provider.dart';
+import 'package:todo_app/shared/styles/app_colors.dart';
 import 'package:todo_app/tabs/widgets/task_bottom_sheet.dart';
 
 class HomeLayout extends StatelessWidget {
@@ -13,7 +15,8 @@ class HomeLayout extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => HomeProvider(),
       builder: (context, child) {
-        var provider = Provider.of<HomeProvider>(context);
+        var mainProvider = Provider.of<MainProvider>(context);
+        var homeProvider = Provider.of<HomeProvider>(context);
         return Scaffold(
           extendBody: true,
           appBar: AppBar(
@@ -23,6 +26,7 @@ class HomeLayout extends StatelessWidget {
             ),
           ),
           bottomNavigationBar: BottomAppBar(
+            color: mainProvider.themeMode == ThemeMode.light?AppColors.white:AppColors.black,
             notchMargin: 8,
             shape: const CircularNotchedRectangle(),
             child: BottomNavigationBar(
@@ -32,25 +36,25 @@ class HomeLayout extends StatelessWidget {
                     icon: Icon(Icons.list_outlined), label: ""),
                 BottomNavigationBarItem(icon: Icon(Icons.settings), label: ""),
               ],
-              currentIndex: provider.index,
+              currentIndex: homeProvider.index,
               iconSize: 30,
               onTap: (selectedIndex) {
-                provider.selectTap(selectedIndex);
+                homeProvider.selectTap(selectedIndex);
               },
             ),
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           floatingActionButton: FloatingActionButton(
+            backgroundColor: AppColors.primaryColor,
             onPressed: () {
               showAddTaskBottomSheet(context);
             },
-            shape: const StadiumBorder(
-              side: BorderSide(color: Colors.white, width: 3),
+            shape:  StadiumBorder(
+              side: BorderSide(color: mainProvider.themeMode == ThemeMode.light?AppColors.white:AppColors.black, width: 3),
             ),
-            child: const Icon(Icons.add),
+            child: const Icon(Icons.add,color: AppColors.white,),
           ),
-          body: provider.tabs[provider.index],
+          body: homeProvider.tabs[homeProvider.index],
         );
       },
     );

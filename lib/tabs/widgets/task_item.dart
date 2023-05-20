@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/providers/main_provider.dart';
 import 'package:todo_app/providers/task_provider.dart';
 import 'package:todo_app/screens/edit_layout.dart';
 import 'package:todo_app/shared/styles/app_colors.dart';
@@ -16,7 +17,8 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var provider = Provider.of<TaskProvider>(context);
+    var mainProvider = Provider.of<MainProvider>(context);
+    var taskProvider = Provider.of<TaskProvider>(context);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: Stack(
@@ -43,10 +45,9 @@ class TaskItem extends StatelessWidget {
                     bottomLeft: Radius.circular(10),
                   ),
                   onPressed: (context) {
-                    provider.removeTask(task.id);
+                    taskProvider.removeTask(task.id);
                   },
                   backgroundColor: AppColors.redColor,
-                  foregroundColor: Colors.white,
                   icon: Icons.delete,
                   label: AppLocalizations.of(context)!.delete,
                 ),
@@ -55,7 +56,7 @@ class TaskItem extends StatelessWidget {
                     Navigator.pushNamed(context, EditLayout.routeName,arguments: task);
                   },
                   backgroundColor: AppColors.primaryColor,
-                  foregroundColor: Colors.white,
+                  foregroundColor: AppColors.white,
                   icon: Icons.edit,
                   label: AppLocalizations.of(context)!.edit,
                 ),
@@ -63,7 +64,7 @@ class TaskItem extends StatelessWidget {
             ),
             child: Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5), color: Colors.white),
+                  borderRadius: BorderRadius.circular(5), color: mainProvider.themeMode==ThemeMode.light?AppColors.white:AppColors.black),
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               child: IntrinsicHeight(
                 child: Row(
@@ -102,7 +103,7 @@ class TaskItem extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        provider.doneTask(task);
+                        taskProvider.doneTask(task);
                       },
                       child: task.status
                           ? Container(

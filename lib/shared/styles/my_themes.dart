@@ -23,17 +23,43 @@ class MyThemeData {
       primaryColor: AppColors.primaryColor,
       textTheme: TextTheme(
         bodySmall: GoogleFonts.roboto(
-            fontSize: 12, fontWeight: FontWeight.normal, color: Colors.black),
+            fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.black),
         bodyMedium: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.bold,
             color: AppColors.primaryColor),
         bodyLarge: GoogleFonts.poppins(
-            fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+            fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.white),
       ),
       appBarTheme: const AppBarTheme(
           backgroundColor: AppColors.primaryColor,
-          iconTheme: IconThemeData(color: Colors.white, size: 30)));
+          iconTheme: IconThemeData(color: AppColors.white, size: 30)));
 
-  static ThemeData darkThemeData = ThemeData();
+  static ThemeData darkThemeData = ThemeData(
+      brightness: Brightness.dark,
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.transparent,
+        selectedItemColor: AppColors.primaryColor,
+        selectedLabelStyle: TextStyle(
+            color: AppColors.primaryColor, fontWeight: FontWeight.bold),
+        unselectedItemColor: Colors.grey,
+        unselectedLabelStyle:
+        TextStyle(color: Colors.grey, fontWeight: FontWeight.normal),
+      ),
+      scaffoldBackgroundColor: AppColors.darkBackgroundColor,
+      primaryColor: AppColors.primaryColor,
+      textTheme: TextTheme(
+        bodySmall: GoogleFonts.roboto(
+            fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.white),
+        bodyMedium: GoogleFonts.poppins(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: AppColors.primaryColor),
+        bodyLarge: GoogleFonts.poppins(
+            fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.black),
+      ),
+      appBarTheme: const AppBarTheme(
+          backgroundColor: AppColors.primaryColor,
+          iconTheme: IconThemeData(color: AppColors.black, size: 30)));
 }

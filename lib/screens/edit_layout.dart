@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/providers/main_provider.dart';
 import '../providers/bottom_sheet_provider.dart';
 import '../providers/task_provider.dart';
 import '../shared/styles/app_colors.dart';
@@ -20,15 +21,16 @@ class EditLayout extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => BottomSheetProvider(),
       builder: (context, child) {
-        var provider = Provider.of<BottomSheetProvider>(context);
+        var mainProvider = Provider.of<MainProvider>(context);
+        var sheetProvider = Provider.of<BottomSheetProvider>(context);
         var taskProvider = Provider.of<TaskProvider>(context);
         if (initialDateFlag) {
-          provider
+          sheetProvider
               .setInitialDate(DateTime.fromMillisecondsSinceEpoch(args.date));
           initialDateFlag = false;
         }
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: mainProvider.themeMode == ThemeMode.light?AppColors.white:AppColors.black,
           extendBody: true,
           appBar: AppBar(
             title: Text(
@@ -37,7 +39,7 @@ class EditLayout extends StatelessWidget {
             ),
           ),
           body: Form(
-            key: provider.formKey,
+            key: sheetProvider.formKey,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -48,7 +50,7 @@ class EditLayout extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
-                        .copyWith(color: Colors.black),
+                        .copyWith(color: mainProvider.themeMode == ThemeMode.light?AppColors.black:AppColors.white),
                   ),
                   const SizedBox(
                     height: 15,
@@ -59,7 +61,7 @@ class EditLayout extends StatelessWidget {
                       if (text == null || text.isEmpty) {
                         return AppLocalizations.of(context)!.task_validation;
                       }
-                      provider.title = text;
+                      sheetProvider.title = text;
                       return null;
                     },
                     decoration: InputDecoration(
@@ -84,15 +86,15 @@ class EditLayout extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
-                          .copyWith(color: Colors.black),
+                          .copyWith(color: mainProvider.themeMode == ThemeMode.light?AppColors.black:AppColors.white),
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
-                      provider.selectDate(context);
+                      sheetProvider.selectDate(context);
                     },
                     child: Text(
-                      provider.selectedDate.toString().substring(0, 10),
+                      sheetProvider.selectedDate.toString().substring(0, 10),
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
@@ -103,12 +105,12 @@ class EditLayout extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * .5,
                       child: ElevatedButton(
                           onPressed: () {
-                            if (provider.formKey.currentState!.validate()) {
+                            if (sheetProvider.formKey.currentState!.validate()) {
                               TaskModel task = TaskModel(
                                   id: args.id,
-                                  date: provider
+                                  date: sheetProvider
                                       .selectedDate.millisecondsSinceEpoch,
-                                  title: provider.title,
+                                  title: sheetProvider.title,
                                   status: false);
                               taskProvider.editTask(task).then((value) => Navigator.pop(context));
                             }

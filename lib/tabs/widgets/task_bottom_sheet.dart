@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/providers/main_provider.dart';
 import 'package:todo_app/providers/task_provider.dart';
 import '../../providers/bottom_sheet_provider.dart';
 import '../../shared/styles/app_colors.dart';
@@ -14,10 +15,11 @@ class TaskBottomSheet extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => BottomSheetProvider(),
       builder: (context, child) {
-        var provider = Provider.of<BottomSheetProvider>(context);
+        var mainProvider = Provider.of<MainProvider>(context);
+        var sheetProvider = Provider.of<BottomSheetProvider>(context);
         var taskProvider = Provider.of<TaskProvider>(context);
         return Form(
-          key: provider.formKey,
+          key: sheetProvider.formKey,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -28,7 +30,7 @@ class TaskBottomSheet extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!
-                      .copyWith(color: Colors.black),
+                      .copyWith(color: mainProvider.themeMode == ThemeMode.light?AppColors.black:AppColors.white),
                 ),
                 const SizedBox(
                   height: 15,
@@ -38,7 +40,7 @@ class TaskBottomSheet extends StatelessWidget {
                     if (text == null || text.isEmpty) {
                       return AppLocalizations.of(context)!.add_new_task;
                     }
-                    provider.title = text;
+                    sheetProvider.title = text;
                     return null;
                   },
                   decoration: InputDecoration(
@@ -63,15 +65,15 @@ class TaskBottomSheet extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
-                        .copyWith(color: Colors.black),
+                        .copyWith(color: mainProvider.themeMode == ThemeMode.light?AppColors.black:AppColors.white),
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
-                    provider.selectDate(context);
+                    sheetProvider.selectDate(context);
                   },
                   child: Text(
-                    provider.selectedDate.toString().substring(0, 10),
+                    sheetProvider.selectedDate.toString().substring(0, 10),
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
@@ -82,10 +84,10 @@ class TaskBottomSheet extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * .5,
                     child: ElevatedButton(
                         onPressed: () {
-                          if (provider.formKey.currentState!.validate()) {
+                          if (sheetProvider.formKey.currentState!.validate()) {
                             TaskModel task = TaskModel(
-                                date: provider.selectedDate.millisecondsSinceEpoch,
-                                title: provider.title,
+                                date: sheetProvider.selectedDate.millisecondsSinceEpoch,
+                                title: sheetProvider.title,
                                 status: false);
                             taskProvider.addTask(task);
                           }
