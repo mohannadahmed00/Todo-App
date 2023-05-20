@@ -13,6 +13,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  //await FirebaseFirestore.instance.disableNetwork();//to make it local
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => TaskProvider()),
     ChangeNotifierProvider(create: (context) => MainProvider()),

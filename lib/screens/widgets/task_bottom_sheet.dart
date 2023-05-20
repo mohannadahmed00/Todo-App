@@ -89,10 +89,6 @@ class TaskBottomSheet extends StatelessWidget {
                                 title: provider.title,
                                 status: false);
                             taskProvider.addTask(task);
-                            print(
-                                "valid: ${provider.selectedDate.toString().substring(0, 10)} => ${provider.title}");
-                          } else {
-                            print("invalid");
                           }
                         },
                         child: const Text("Add Task")))

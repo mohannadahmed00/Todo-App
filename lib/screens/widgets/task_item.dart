@@ -17,27 +17,16 @@ class TaskItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: Stack(
         alignment: Alignment.center,
-        //clipBehavior: Clip.antiAlias,
         children: [
-          /*Container(
-            height: 70,
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(horizontal: 4),
-            color: Color(0xFFFE4A49),
-          ),*/
           Positioned.fill(
             child: Builder(
                 builder: (context) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Container(color: AppColors.redColor),
+                      child: Container(color:task.status? AppColors.redColor:AppColors.primaryColor),
                     )),
           ),
           Slidable(
-            // Specify a key if the Slidable is dismissible.
-            //key: const ValueKey(0),
-
             startActionPane: ActionPane(
-              // A motion is a widget used to control how the pane animates.
               motion: const ScrollMotion(),
 
               // A pane can dismiss the Slidable.
@@ -50,22 +39,28 @@ class TaskItem extends StatelessWidget {
                     bottomLeft: Radius.circular(10),
                   ),
                   onPressed: (context) {
-                    provider.removeTask(task);
+                    provider.removeTask(task.id);
                   },
                   backgroundColor: AppColors.redColor,
                   foregroundColor: Colors.white,
                   icon: Icons.delete,
                   label: 'Delete',
                 ),
+                if(!task.status)SlidableAction(
+                  onPressed: (context) {
+                    //provider.removeTask(task.id);
+                  },
+                  backgroundColor: AppColors.primaryColor,
+                  foregroundColor: Colors.white,
+                  icon: Icons.edit,
+                  label: 'Edit',
+                ),
               ],
             ),
-
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5), color: Colors.white),
-              //margin: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-
               child: IntrinsicHeight(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,7 +68,6 @@ class TaskItem extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 10),
                       width: 2.0,
-                      // set the height to fill the available space
                       color: task.status
                           ? AppColors.greenColor
                           : AppColors.primaryColor,

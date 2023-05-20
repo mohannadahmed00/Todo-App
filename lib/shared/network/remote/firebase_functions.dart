@@ -19,19 +19,18 @@ class FirebaseFunctions {
     return docRef.set(task);
   }
 
-  static Stream<QuerySnapshot<TaskModel>> getTasks(String date){
-    return getTaskCollection().where("date",isEqualTo: date).snapshots(); // real-time read
+  static Stream<QuerySnapshot<TaskModel>> getTasks(String date) {
+    return getTaskCollection()
+        .where("date", isEqualTo: date)
+        .snapshots(); // real-time read
     //return getTaskCollection().where("date",isEqualTo: date).get(); //one-time read
   }
 
-  static Future<void> deleteTask(String id){
+  static Future<void> deleteTask(String id) {
     return getTaskCollection().doc(id).delete();
   }
 
-  static Future<void> updateTask(TaskModel task){
+  static Future<void> updateTask(TaskModel task) {
     return getTaskCollection().doc(task.id).update(task.toJSON());
   }
-
-
-
 }

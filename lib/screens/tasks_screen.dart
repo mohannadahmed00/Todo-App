@@ -5,7 +5,6 @@ import 'package:todo_app/screens/widgets/task_item.dart';
 import 'package:todo_app/shared/styles/app_colors.dart';
 import 'package:todo_app/providers/task_provider.dart';
 
-
 class TasksScreen extends StatelessWidget {
   const TasksScreen({super.key});
 
@@ -34,86 +33,38 @@ class TasksScreen extends StatelessWidget {
         StreamBuilder(
           stream: provider.getTasksSnapShot(),
           builder: (context, snapshot) {
-            if(snapshot.connectionState == ConnectionState.waiting){
-              return const Expanded(child: Center(child: CircularProgressIndicator()));
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Expanded(
+                  child: Center(child: CircularProgressIndicator()));
             }
-            if(snapshot.hasError){
-              return Expanded(child: Center(child: Text("Something went wrong",style: Theme.of(context).textTheme.bodyMedium,)));
+            if (snapshot.hasError) {
+              return Expanded(
+                  child: Center(
+                      child: Text(
+                "Something went wrong",
+                style: Theme.of(context).textTheme.bodyMedium,
+              )));
             }
-            //List<TaskModel> tasks = snapshot.data?.docs.map((e) => e.data()).toList()??[];
             provider.getTasks(snapshot);
-            if(provider.tasks.isEmpty){
-              return Expanded(child: Center(child: Text("No Data",style: Theme.of(context).textTheme.bodyMedium,)));
+            if (provider.tasks.isEmpty) {
+              return Expanded(
+                  child: Center(
+                      child: Text(
+                "No Data",
+                style: Theme.of(context).textTheme.bodyMedium,
+              )));
             }
-          return Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                return TaskItem(provider.tasks[index]);
-              },
-              itemCount: provider.tasks.length,
-            ),
-          );
-        },)
+            return Expanded(
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return TaskItem(provider.tasks[index]);
+                },
+                itemCount: provider.tasks.length,
+              ),
+            );
+          },
+        )
       ],
     );
   }
 }
-
-/*FutureBuilder(
-          future: FirebaseFunctions.getTasks(),
-          builder: (context, snapshot) {
-
-
-
-
-          if(snapshot.connectionState == ConnectionState.waiting){
-            return Center(child: CircularProgressIndicator());
-          }
-          if(snapshot.hasError){
-            return Center(child: Text("Something went wrong",style: Theme.of(context).textTheme.bodyMedium,));
-          }
-          List<TaskModel> tasks = snapshot.data?.docs.map((e) => e.data()).toList()??[];
-          if(tasks.isEmpty){
-            return Center(child: Text("No Data",style: Theme.of(context).textTheme.bodyMedium,));
-          }
-          return Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                return TaskItem(tasks[index]);
-              },
-              itemCount: provider.targetTasks.length,
-            ),
-            /*child: ListView(
-          children: [
-            for (int i = 0; i < provider.tasks.length; i++) ...{
-              if (provider.tasks[i].date ==
-                  provider.selectedDate.toString().substring(0, 10))
-                TaskItem(provider.tasks[i]),
-            }
-          ],*/
-            /*itemBuilder: (context, index) {
-          print("${provider.tasks[index].date} == ${provider.selectedDate.toString().substring(0, 10)}");
-            if(provider.tasks[index].date == provider.selectedDate.toString().substring(0, 10)){
-              return TaskItem(provider.tasks[index]);
-            }
-
-          },
-          itemCount: provider.tasks.length,*/
-          );
-        },),*/
-/*child: ListView(
-          children: [
-            for (int i = 0; i < provider.tasks.length; i++) ...{
-              if (provider.tasks[i].date ==
-                  provider.selectedDate.toString().substring(0, 10))
-                TaskItem(provider.tasks[i]),
-            }
-          ],*/
-/*itemBuilder: (context, index) {
-          print("${provider.tasks[index].date} == ${provider.selectedDate.toString().substring(0, 10)}");
-            if(provider.tasks[index].date == provider.selectedDate.toString().substring(0, 10)){
-              return TaskItem(provider.tasks[index]);
-            }
-
-          },
-          itemCount: provider.tasks.length,*/
