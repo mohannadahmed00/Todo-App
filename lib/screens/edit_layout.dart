@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/task_model.dart';
-
 import '../providers/bottom_sheet_provider.dart';
 import '../providers/task_provider.dart';
 import '../shared/styles/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class EditLayout extends StatelessWidget {
   static const String routeName = "EditLayout";
@@ -43,7 +44,7 @@ class EditLayout extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "Add New Task",
+                    AppLocalizations.of(context)!.add_new_task,
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
@@ -56,13 +57,13 @@ class EditLayout extends StatelessWidget {
                     initialValue: args.title,
                     validator: (text) {
                       if (text == null || text.isEmpty) {
-                        return "please enter task title";
+                        return AppLocalizations.of(context)!.task_validation;
                       }
                       provider.title = text;
                       return null;
                     },
                     decoration: InputDecoration(
-                      label: const Text("Task Title"),
+                      label: Text(AppLocalizations.of(context)!.task_title),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(18),
                           borderSide:
@@ -79,7 +80,7 @@ class EditLayout extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: Text(
-                      "Select Date",
+                      AppLocalizations.of(context)!.select_date,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -112,7 +113,7 @@ class EditLayout extends StatelessWidget {
                               taskProvider.editTask(task).then((value) => Navigator.pop(context));
                             }
                           },
-                          child: const Text("Edit Task")))
+                          child: Text(AppLocalizations.of(context)!.edit)))
                 ],
               ),
             ),

@@ -4,6 +4,7 @@ import 'package:todo_app/models/task_model.dart';
 import 'package:todo_app/providers/task_provider.dart';
 import '../../providers/bottom_sheet_provider.dart';
 import '../../shared/styles/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TaskBottomSheet extends StatelessWidget {
   const TaskBottomSheet({super.key});
@@ -23,7 +24,7 @@ class TaskBottomSheet extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Add New Task",
+                  AppLocalizations.of(context)!.add_new_task,
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!
@@ -35,13 +36,13 @@ class TaskBottomSheet extends StatelessWidget {
                 TextFormField(
                   validator: (text) {
                     if (text == null || text.isEmpty) {
-                      return "please enter task title";
+                      return AppLocalizations.of(context)!.add_new_task;
                     }
                     provider.title = text;
                     return null;
                   },
                   decoration: InputDecoration(
-                    label: const Text("Task Title"),
+                    label: Text(AppLocalizations.of(context)!.task_title),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18),
                         borderSide:
@@ -58,7 +59,7 @@ class TaskBottomSheet extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: Text(
-                    "Select Date",
+                    AppLocalizations.of(context)!.select_date,
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
@@ -89,7 +90,7 @@ class TaskBottomSheet extends StatelessWidget {
                             taskProvider.addTask(task);
                           }
                         },
-                        child: const Text("Add Task")))
+                        child: Text(AppLocalizations.of(context)!.add)))
               ],
             ),
           ),
