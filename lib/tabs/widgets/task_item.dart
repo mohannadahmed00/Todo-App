@@ -5,6 +5,8 @@ import 'package:todo_app/models/task_model.dart';
 import 'package:todo_app/providers/task_provider.dart';
 import 'package:todo_app/screens/edit_layout.dart';
 import 'package:todo_app/shared/styles/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class TaskItem extends StatelessWidget {
   final TaskModel task;
@@ -46,7 +48,7 @@ class TaskItem extends StatelessWidget {
                   backgroundColor: AppColors.redColor,
                   foregroundColor: Colors.white,
                   icon: Icons.delete,
-                  label: 'Delete',
+                  label: AppLocalizations.of(context)!.delete,
                 ),
                 if(!task.status)SlidableAction(
                   onPressed: (context) {
@@ -55,7 +57,7 @@ class TaskItem extends StatelessWidget {
                   backgroundColor: AppColors.primaryColor,
                   foregroundColor: Colors.white,
                   icon: Icons.edit,
-                  label: 'Edit',
+                  label: AppLocalizations.of(context)!.edit,
                 ),
               ],
             ),
@@ -107,7 +109,7 @@ class TaskItem extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(vertical: 5),
                               width: MediaQuery.of(context).size.width * .25,
                               child: Text(
-                                "Done!",
+                                "${AppLocalizations.of(context)!.done}",
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context)
                                     .textTheme

@@ -1,3 +1,11 @@
 {
-  "helloWorld": "Hello World!"
+  "done": "Done!",
+  "add_new_task": "Add New Task",
+  "edit_the_task": "Edit The Task",
+  "task_title": "Task Title",
+  "select_date": "Select Date",
+  "add": "Add",
+  "edit": "Edit",
+  "delete": "Delete",
+  "task_validation": "please enter task title"
 }
