@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class MainProvider extends ChangeNotifier {
   Locale locale = const Locale('en');
-  ThemeMode themeMode = ThemeMode.dark;
+  ThemeMode themeMode = ThemeMode.light;
 
   void changeLanguage(String local) {
     locale = Locale(local);
