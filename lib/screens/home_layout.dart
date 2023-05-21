@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/providers/home_provider.dart';
 import 'package:todo_app/providers/main_provider.dart';
 import 'package:todo_app/shared/styles/app_colors.dart';
-import 'package:todo_app/tabs/widgets/task_bottom_sheet.dart';
+import 'package:todo_app/tabs/widgets/task_form.dart';
 
 class HomeLayout extends StatelessWidget {
   static const String routeName = "HomeLayout";
@@ -70,7 +70,7 @@ class HomeLayout extends StatelessWidget {
         builder: (context) => Padding(
               padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: const TaskBottomSheet(),
+              child: TaskForm(),
             ));
   }
 }

@@ -13,9 +13,10 @@ class SettingsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     var provider = Provider.of<MainProvider>(context);
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -43,7 +44,7 @@ class SettingsTab extends StatelessWidget {
                   ],
                   iconSize: 30.0,
                   activeBgColors: const [
-                    [Colors.black45, Colors.black26],
+                    [AppColors.black, AppColors.black],
                     [Colors.yellow, Colors.orange]
                   ],
                   // animate must be set to true when using custom curve
@@ -60,7 +61,7 @@ class SettingsTab extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -100,45 +101,7 @@ class SettingsTab extends StatelessWidget {
             ],
           ),
         ),
-
-        /*Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            AppLocalizations.of(context)!.language,
-          ),
-        ),
-        GestureDetector(
-          onTap: (){
-            showBottomSheet(context,"language");
-          },
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 8),
-            padding: const EdgeInsets.all(8.0),
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              border: Border.all(
-                color: AppColors.primaryColor,
-              ),
-            ),
-            child: Text(provider.locale.languageCode=='en'?AppLocalizations.of(context)!.english:AppLocalizations.of(context)!.arabic),
-          ),
-        ),*/
       ],
     );
-  }
-
-  void showBottomSheet(BuildContext context, String type) {
-    showModalBottomSheet(
-        context: context,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
-        builder: (context) {
-          return Container(
-            color: Colors.amber,
-          );
-          //return MyBottomSheet(type);
-        });
   }
 }
