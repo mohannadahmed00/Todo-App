@@ -47,6 +47,7 @@ dependencies:
   toggle_switch: ^2.1.0
   font_awesome_flutter: ^10.4.0
   flutter_native_splash: ^2.2.19
+  firebase_auth: ^4.6.1
 
 
 dev_dependencies:

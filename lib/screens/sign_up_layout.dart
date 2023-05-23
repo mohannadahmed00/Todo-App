@@ -15,6 +15,9 @@ class SignUpLayout extends StatelessWidget {
       create: (context) => SignUpProvider(),
       builder: (context, child) {
         var signUpProvider = Provider.of<SignUpProvider>(context);
+        if(signUpProvider.responseCode == "200"){
+          Navigator.pop(context);
+        }
         return Scaffold(
           body: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -30,7 +33,7 @@ class SignUpLayout extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              AppLocalizations.of(context)!.sign_up,
+                              AppLocalizations.of(context)!.sign_up,//
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
@@ -51,6 +54,7 @@ class SignUpLayout extends StatelessWidget {
                                   return AppLocalizations.of(context)!
                                       .enter_valid_name;
                                 }
+                                signUpProvider.setName(value);
                                 return null;
                               },
                               decoration: InputDecoration(
@@ -87,6 +91,7 @@ class SignUpLayout extends StatelessWidget {
                                 if (age >= 60) {
                                   return AppLocalizations.of(context)!.age_less;
                                 }
+                                signUpProvider.setAge(num.parse(value).toInt());
                                 return null;
                               },
                               decoration: InputDecoration(
@@ -116,6 +121,7 @@ class SignUpLayout extends StatelessWidget {
                                   return AppLocalizations.of(context)!
                                       .enter_valid_mail;
                                 }
+                                signUpProvider.setEmail(value);
                                 return null;
                               },
                               decoration: InputDecoration(
@@ -171,6 +177,7 @@ class SignUpLayout extends StatelessWidget {
                                   return AppLocalizations.of(context)!
                                       .valid_pass5;
                                 }
+                                signUpProvider.setPassword(value);
                                 return null;
                               },
                               decoration: InputDecoration(
@@ -193,15 +200,13 @@ class SignUpLayout extends StatelessWidget {
                                 width: MediaQuery.of(context).size.width * .5,
                                 child: ElevatedButton(
                                     onPressed: () {
-                                      if (signUpProvider.formKey.currentState!
-                                          .validate()) {
-                                        print("valid");
-                                      } else {
-                                        print("invalid");
+                                      if (signUpProvider.formKey.currentState!.validate()) {
+                                        signUpProvider.signUp();
                                       }
                                     },
                                     child: Text(AppLocalizations.of(context)!
                                         .create_acc))),
+                            Text("*${signUpProvider.responseCode!="200"?signUpProvider.responseCode.replaceAll("-", " "):""}",style: TextStyle(color: Colors.red,fontSize: 12),)
                           ],
                         ),
                       ),

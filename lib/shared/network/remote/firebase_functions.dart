@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todo_app/models/task_model.dart';
 
 class FirebaseFunctions {
-  static CollectionReference<TaskModel> getTaskCollection() {
+  static CollectionReference<TaskModel> getTasksCollection() {
     return FirebaseFirestore.instance
         .collection("Tasks")
         .withConverter<TaskModel>(fromFirestore: (snapshot, _) {
@@ -13,24 +14,31 @@ class FirebaseFunctions {
   }
 
   static Future<void> addTask(TaskModel task) {
-    var collection = getTaskCollection();
+    var collection = getTasksCollection();
     var docRef = collection.doc();
     task.id = docRef.id;
     return docRef.set(task);
   }
 
   static Stream<QuerySnapshot<TaskModel>> getTasks(int date) {
-    return getTaskCollection()
+    return getTasksCollection()
         .where("date", isEqualTo: date)
         .snapshots(); // real-time read
     //return getTaskCollection().where("date",isEqualTo: date).get(); //one-time read
   }
 
   static Future<void> deleteTask(String id) {
-    return getTaskCollection().doc(id).delete();
+    return getTasksCollection().doc(id).delete();
   }
 
   static Future<void> updateTask(TaskModel task) {
-    return getTaskCollection().doc(task.id).update(task.toJSON());
+    return getTasksCollection().doc(task.id).update(task.toJSON());
+  }
+
+  static Future<UserCredential> signUp(String email, String password) {
+    return FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 }
