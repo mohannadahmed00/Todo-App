@@ -6,6 +6,7 @@ import 'package:todo_app/screens/edit_layout.dart';
 import 'package:todo_app/screens/home_layout.dart';
 import 'package:todo_app/providers/main_provider.dart';
 import 'package:todo_app/providers/task_provider.dart';
+import 'package:todo_app/screens/sign_up_layout.dart';
 import 'package:todo_app/shared/styles/my_themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'firebase_options.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
       themeMode: provider.themeMode,
       initialRoute: LoginLayout.routeName,
       routes: {
+        SignUpLayout.routeName: (context) => SignUpLayout(),
         LoginLayout.routeName: (context) => LoginLayout(),
         HomeLayout.routeName: (context) => const HomeLayout(),
         EditLayout.routeName: (context) => EditLayout(),
