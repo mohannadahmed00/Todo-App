@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/screens/auth_layout.dart';
+import 'package:todo_app/screens/login_layout.dart';
 import 'package:todo_app/screens/edit_layout.dart';
 import 'package:todo_app/screens/home_layout.dart';
 import 'package:todo_app/providers/main_provider.dart';
@@ -44,9 +44,9 @@ class MyApp extends StatelessWidget {
       darkTheme: MyThemeData.darkThemeData,
       theme: MyThemeData.lightThemeData,
       themeMode: provider.themeMode,
-      initialRoute: AuthLayout.routeName,
+      initialRoute: LoginLayout.routeName,
       routes: {
-        AuthLayout.routeName: (context) => AuthLayout(),
+        LoginLayout.routeName: (context) => LoginLayout(),
         HomeLayout.routeName: (context) => const HomeLayout(),
         EditLayout.routeName: (context) => EditLayout(),
       },
