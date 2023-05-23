@@ -1,12 +1,22 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/home_layout/home_layout.dart';
+import 'package:todo_app/screens/login_layout.dart';
+import 'package:todo_app/screens/edit_layout.dart';
+import 'package:todo_app/screens/home_layout.dart';
 import 'package:todo_app/providers/main_provider.dart';
 import 'package:todo_app/providers/task_provider.dart';
 import 'package:todo_app/shared/styles/my_themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'firebase_options.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  //await FirebaseFirestore.instance.disableNetwork();//to make it local
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => TaskProvider()),
     ChangeNotifierProvider(create: (context) => MainProvider()),
@@ -21,6 +31,7 @@ class MyApp extends StatelessWidget {
     var provider = Provider.of<MainProvider>(context);
     return MaterialApp(
       localizationsDelegates: const [
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -33,8 +44,12 @@ class MyApp extends StatelessWidget {
       darkTheme: MyThemeData.darkThemeData,
       theme: MyThemeData.lightThemeData,
       themeMode: provider.themeMode,
-      initialRoute: HomeLayout.routeName,
-      routes: {HomeLayout.routeName: (context) => const HomeLayout()},
+      initialRoute: LoginLayout.routeName,
+      routes: {
+        LoginLayout.routeName: (context) => LoginLayout(),
+        HomeLayout.routeName: (context) => const HomeLayout(),
+        EditLayout.routeName: (context) => EditLayout(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }

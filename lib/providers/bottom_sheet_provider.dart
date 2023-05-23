@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class BottomSheetProvider extends ChangeNotifier {
   var formKey = GlobalKey<FormState>();
-  DateTime selectedDate = DateTime.now();
+  DateTime selectedDate = DateUtils.dateOnly(DateTime.now());
   String title = "";
 
   void setTitle(String text) {
@@ -10,6 +10,10 @@ class BottomSheetProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setInitialDate(DateTime initialDate){
+    selectedDate = initialDate;
+    notifyListeners();
+  }
   void selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
       context: context,

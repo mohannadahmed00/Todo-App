@@ -1,7 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../models/task_model.dart';
+import '../shared/network/remote/firebase_functions.dart';
 
 class TaskProvider extends ChangeNotifier {
+  List<TaskModel> tasks = [];
+
+  DateTime selectedDate = DateUtils.dateOnly(DateTime.now());
+
+  void selectDate(DateTime date) {
+    selectedDate = date;
+    notifyListeners();
+  }
+
   List<DateTime> holidays = [
     DateTime(2023, 1, 2),
     DateTime(2023, 6, 1),
@@ -10,10 +21,37 @@ class TaskProvider extends ChangeNotifier {
     DateTime(2023, 10, 23)
   ];
 
-  List<TaskModel> tasks = [];
+  Future<void> addTask(TaskModel task) {
+    return FirebaseFunctions.addTask(task);
+  }
 
-  void addTask(TaskModel task) {
-    tasks.add(task);
+  Stream<QuerySnapshot<TaskModel>> getTasksSnapShot() {
+    //Future => one-time read
+    return FirebaseFunctions.getTasks(selectedDate.millisecondsSinceEpoch);
+  }
+
+  void getTasks(AsyncSnapshot<QuerySnapshot<TaskModel>> snapshot) {
+    tasks = snapshot.data?.docs.map((doc) {
+          TaskModel task = doc.data();
+          task.id = doc.id;
+          return task;
+        }).toList() ??
+        [];
     notifyListeners();
   }
+
+  Future<void> removeTask(String id) {
+    return FirebaseFunctions.deleteTask(id);
+  }
+
+  Future<void> doneTask(TaskModel task) {
+    task.status = true;
+    return FirebaseFunctions.updateTask(task);
+  }
+
+  Future<void> editTask(TaskModel task) {
+    return FirebaseFunctions.updateTask(task);
+  }
+
+
 }
