@@ -15,5 +15,8 @@
   "light": "Light",
   "dark": "Dark",
   "no_data": "No Data",
-  "wrong": "Something Went Wrong"
+  "wrong": "Something Went Wrong",
+  "login": "Login",
+  "email": "Email",
+  "password": "Password"
 }
