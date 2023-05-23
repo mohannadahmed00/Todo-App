@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/providers/login_provider.dart';
+import 'package:todo_app/screens/sign_up_layout.dart';
 import '../shared/styles/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -39,10 +40,10 @@ class LoginLayout extends StatelessWidget {
                           validator: (value) {
                             final RegExp emailRegExp = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.com+");
                             if(value!.isEmpty){
-                              return "please enter your mail";
+                              return AppLocalizations.of(context)!.enter_mail;
                             }
                             if(!emailRegExp.hasMatch(value)){
-                              return "please enter valid mail";
+                              return AppLocalizations.of(context)!.enter_valid_mail;
                             }
                             return null;
                           },
@@ -98,18 +99,23 @@ class LoginLayout extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "Don't have an account? ",
+                        AppLocalizations.of(context)!.do_not_have_acc,
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
                             .copyWith(color: Colors.grey, fontSize: 14),
                       ),
-                      Text(
-                        "Create Account",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(fontSize: 14),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.pushNamed(context, SignUpLayout.routeName);
+                        },
+                        child: Text(
+                          AppLocalizations.of(context)!.create_acc,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(fontSize: 14),
+                        ),
                       ),
                     ],
                   )
