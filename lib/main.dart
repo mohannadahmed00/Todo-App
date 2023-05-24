@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         SignUpLayout.routeName: (context) => SignUpLayout(),
         LoginLayout.routeName: (context) => LoginLayout(),
         HomeLayout.routeName: (context) => const HomeLayout(),
-        EditLayout.routeName: (context) => EditLayout(),
+        EditLayout.routeName: (context) => const EditLayout(),
       },
       debugShowCheckedModeBanner: false,
     );

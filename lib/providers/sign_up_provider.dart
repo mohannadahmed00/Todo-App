@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app/models/user_model.dart';
 import 'package:todo_app/shared/network/remote/firebase_functions.dart';
 
 class SignUpProvider extends ChangeNotifier {
@@ -27,10 +28,11 @@ class SignUpProvider extends ChangeNotifier {
   }
 
   void signUp() async{
-
     try {
-      await FirebaseFunctions.signUp(email, password);
+      final credential = await FirebaseFunctions.signUp(email, password);
       responseCode = "200";
+      UserModel user = UserModel(name: name, email: email, age: age);
+      FirebaseFunctions.addUser(user, credential.user!.uid);
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

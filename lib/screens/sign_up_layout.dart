@@ -206,7 +206,7 @@ class SignUpLayout extends StatelessWidget {
                                     },
                                     child: Text(AppLocalizations.of(context)!
                                         .create_acc))),
-                            Text("*${signUpProvider.responseCode!="200"?signUpProvider.responseCode.replaceAll("-", " "):""}",style: TextStyle(color: Colors.red,fontSize: 12),)
+                            Text(signUpProvider.responseCode!="200"?"*${signUpProvider.responseCode.replaceAll("-", " ")}":"",style: TextStyle(color: Colors.red,fontSize: 12),)
                           ],
                         ),
                       ),

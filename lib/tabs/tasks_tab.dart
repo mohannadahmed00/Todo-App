@@ -51,7 +51,7 @@ class TasksTab extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyMedium,
                 )));
               }
-              taskProvider.getTasks(snapshot);
+              //taskProvider.getTasks(snapshot);
               if (taskProvider.tasks.isEmpty) {
                 return Expanded(
                     child: Center(

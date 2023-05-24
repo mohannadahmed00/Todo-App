@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 
 class TaskModel {
+  static const String COLLECTION_NAME = "Tasks";
   String id, title;
   int date;
   bool status;
